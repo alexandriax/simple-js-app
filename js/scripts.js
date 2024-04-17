@@ -16,3 +16,10 @@ let pokemonList = [
       height: 4,
       types: ['ghost', 'poison'],
     },
+
+    {
+      name: 'Ditto',
+      height: 1,
+      types: ['normal'],
+    }
+];
