@@ -10,3 +10,9 @@ let pokemonList = [
       height: 7,
       types: ['fire'],
     },
+
+    {
+      name: "Gengar",
+      height: 4,
+      types: ['ghost', 'poison'],
+    },
