@@ -1,52 +1,8 @@
 :root {
-/* colors used */
---background: #fffefa;
---lightText: #c5bebe;
---text: #625f5f;    
-}
-
-body{
-    background-color: var(--background);
-    font-family: "Asap", sans-serif;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 1.6;
-    color: var(--text)
-}
-
-ul {
-    list-style-type: none;
-}
-
-.page-header {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    padding: 20px;
-}
-
-.page-header__logo {
-    max-width: 400px;
-    max-height: 200px;
-}
-.page-header__item {
-    flex: 1 1 1;
-}
-
-hr.solid {
-    border-top: 2px solid;
-}
-
-
-@media all and (max-width: 500px) {
-    .grid {
-        grid-template-columns: 1fr;
-    }    
-}
-
-@media all and (min-width: 500px) and (max-width: 750px){
-    .grid {
-        grid-template-columns: 1fr 1fr;
+    /* colors used */
+    --background: #fffefa;
+    --lightText: #c5bebe;
+    --text: #625f5f;    
     }
 }
 
