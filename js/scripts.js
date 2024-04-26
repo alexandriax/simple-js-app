@@ -105,3 +105,11 @@ pokemonList.getAll().forEach(function(pokemon) {
   document.write(' <br>  ');
 });
 
+function filterItems(arr, query) {
+  return arr.filterItems((el) => el.toLowerCase().includes(query.toLowerCase()));
+}
+
+console.log(filterItems(pokemonList, 'bu')); //[bulbasaur]
+console.log(filterItems(pokemonList, 'ni')); //[ninetales]
+console.log(filterItems(pokemonList, 'ge')); //[gengar]
+console.log(filterItems(pokemonList, 'di')); //[ditto]
