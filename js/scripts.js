@@ -1,3 +1,4 @@
+/*
 let pokemonList = [
     {
       name: 'Bulbasaur',
@@ -23,6 +24,7 @@ let pokemonList = [
       types: ['normal'],
     }
 ];
+*/
 
 /*
 for(let i=0; i<pokemonList.length; i++) {
