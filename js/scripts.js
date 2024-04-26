@@ -89,7 +89,12 @@ let pokemonList = (function () {
 })();
 
 pokemonList.getAll().forEach(function(pokemon) {
-  document.write(pokemon.name + ' height: ' + pokemon.height + ' ')
+  let keys = Object.keys(pokemon);
+
+  keys.forEach(function(key){
+    document.write(key + ': ' + pokemon[key] + ' ');
+  });
+  //document.write(pokemon.name + ' height: ' + pokemon.height + ' ')
   if (pokemon.height <=2) {
     document.write(' That\'s a tiny pokemon! ');
   }else if (pokemonList.height > 2 && pokemonList.height <= 5) {
@@ -99,3 +104,4 @@ pokemonList.getAll().forEach(function(pokemon) {
   }  
   document.write(' <br>  ');
 });
+
