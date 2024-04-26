@@ -90,8 +90,6 @@ pokemonList.getAll().forEach(function(pokemon) {
     document.write(' <br>  ');
   }else if(pokemon.height > 5) { 
     document.write(' That\'s a huge pokemon! ');
-    document.write(' <br>  ');
   }  
+  document.write(' <br>  ');
 });
-
-
