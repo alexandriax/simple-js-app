@@ -84,11 +84,11 @@ let pokemonList = (function () {
 
 pokemonList.getAll().forEach(function(pokemon) {
   document.write(pokemon.name + ' height: ' + pokemon.height + ' ')
-  if (pokemonList.height <=2) {
+  if (pokemon.height <=2) {
     document.write(' That\'s a tiny pokemon! ');
-  }else if (pokemonList.height >2 && pokemonList.height <=5) {
+  }else if (pokemonList.height > 2 && pokemonList.height <= 5) {
     document.write(' <br>  ');
-  }else {
+  }else if(pokemon.height > 5) { 
     document.write(' That\'s a huge pokemon! ');
     document.write(' <br>  ');
   }  
