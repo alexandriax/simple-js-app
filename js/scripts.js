@@ -109,7 +109,7 @@ function filterItems(arr, query) {
   return arr.filterItems((el) => el.toLowerCase().includes(query.toLowerCase()));
 }
 
-console.log(filterItems(pokemonList, 'bu')); //[bulbasaur]
-console.log(filterItems(pokemonList, 'ni')); //[ninetales]
-console.log(filterItems(pokemonList, 'ge')); //[gengar]
-console.log(filterItems(pokemonList, 'di')); //[ditto]
+console.log(filterItems(pokemonList.getAll(), 'bu')); //[bulbasaur]
+console.log(filterItems(pokemonList.getAll(), 'ni')); //[ninetales]
+console.log(filterItems(pokemonList.getAll(), 'ge')); //[gengar]
+console.log(filterItems(pokemonList.getAll(), 'di')); //[ditto]
