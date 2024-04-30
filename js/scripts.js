@@ -106,7 +106,7 @@ pokemonList.getAll().forEach(function(pokemon) {
 });
 
 function filterItems(arr, query) {
-  return arr.filterItems((el) => el.toLowerCase().includes(query.toLowerCase()));
+  return arr.filter((el) => el.name.toLowerCase().includes(query.toLowerCase()));
 }
 
 console.log(filterItems(pokemonList.getAll(), 'bu')); //[bulbasaur]
