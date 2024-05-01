@@ -105,12 +105,16 @@ let pokemonList = (function () {
   }
   return {
     add: add,
-    getAll: getAll
+    getAll: getAll,
+    addListItem: addListItem,
   };
 })();
 
 pokemonList.getAll().forEach(function(pokemon) {
   let keys = Object.keys(pokemon);
+
+  pokemonList.addListItem(pokemon);
+
 
   keys.forEach(function(key){
     document.write(key + ': ' + pokemon[key] + ' ');
