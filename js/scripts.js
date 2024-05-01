@@ -99,7 +99,10 @@ let pokemonList = (function () {
     pokemonRepository.appendChild(listpokemon);
     addEventListenerButton(button, pokemon);
   }
+  function showDetails(pokemon){ // event listener
+    console.log(pokemon)
 
+  }
   return {
     add: add,
     getAll: getAll
