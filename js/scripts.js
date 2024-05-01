@@ -81,6 +81,11 @@ let pokemonList = (function () {
   function getAll() {
     return pokemonList;
   }
+  function addEventListenerButton(button, pokemon) {
+    button.addEventListener('click', function() {
+      showDetails(pokemon);
+    })
+  }
 
   return {
     add: add,
