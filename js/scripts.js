@@ -161,12 +161,17 @@ let pokemonList = (function () {
       addListItem(pokemon);
     });
   }
+
   return {
     add: add,
     getAll: getAll,
     addListItem: addListItem,
+    LoadList: LoadList,
+    loadDetails: loadDetails
   };
 })();
+
+pokemonList.LoadList();
 
 pokemonList.getAll().forEach(function(pokemon) {
   let keys = Object.keys(pokemon);
