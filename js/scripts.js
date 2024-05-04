@@ -126,6 +126,40 @@ let pokemonList = (function () {
     console.error('error getting pokemon list', error);
   });
 }
+
+  function loadDetails(pokemon) {
+    fetch(pokemon.detailsUrl).then(function(response){
+      return response.json();
+    }).then(function(data){
+      if (data.height !== undefined) {
+        pokemon.height = data.height;
+      }else {
+        console.error('height is missing for', pokemon.name);
+      }
+
+      if (data.weight !== undefined) {
+        pokemon.weight = data.weight;
+      }else {
+        console.error('weight is missing for', pokemon.name);
+      }
+
+      if (data.types !== undefined) {
+        pokemon.types = data.types;
+      }else {
+        console.error('type is missing for', pokemon.name);
+      }
+
+      console.log('loaded details for', pokemon.name, ':', pokemon);
+    }).catch(function(error) {
+      hideLoadingMessage();
+      console.error(`error getting details for ${pokemon.name}`, error);
+    });
+  }
+
+  function renderPokemonList(){
+    getAll().forEach(function(pokemon) {
+      addListItem(pokemon);
+    });
   }
   return {
     add: add,
