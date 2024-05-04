@@ -57,26 +57,39 @@ let pokemonList = (function () {
   function getAll() {
     return pokemonList;
   }
+
   function addEventListenerButton(button, pokemon) {
     button.addEventListener('click', function() {
       showDetails(pokemon);
-    })
+    });
   }
+
   function addListItem(pokemon){
     let pokemonRepository = document.querySelector('.pokemon-list');
     let listpokemon = document.createElement('li');
     let button = document.createElement('button');
     button.innerText = pokemon.name;
     button.classList.add('button-class');
-    /* button.addEventListener('click', function(pokemon){
-      showDetails(pokemon);
-    }); */
     listpokemon.appendChild(button);
     pokemonRepository.appendChild(listpokemon);
     addEventListenerButton(button, pokemon);
   }
+
   function showDetails(pokemon){ // event listener
-    console.log(pokemon)
+    loadDetails(pokemon);
+
+  }
+
+  function LoadList (){
+    showLoadingMessage();
+    fetch('https://pokeapi.co/api/v2/pokemon/').then(function(response) {
+    return response.json();
+    }).then(function(data){
+      data.results.forEach(function(pokemon, index){
+        let pokemonObject = {
+          name: pokemon.name,
+          detailsUrl: pokemon.url
+        };
 
   }
   return {
