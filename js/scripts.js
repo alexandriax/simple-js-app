@@ -91,6 +91,41 @@ let pokemonList = (function () {
           detailsUrl: pokemon.url
         };
 
+        let pokemonDetailsUrl = `https://pokeapi.co/api/v2/pokemon/${index + 1}`;
+        fetch(pokemonDetailsUrl).then(function(response) {
+          return response.json();
+        }).then(function(pokemonData){
+          if(pokemonData.sprites && pokemonData.sprites.front_default) {
+            pokemonObject.imgUrl = pokemonData.sprites.front_default;
+          }else {
+            console.error('img not found for', pokemon.name);
+          }
+          
+          pokemonObject.height = pokemonData.height; 
+
+          if (index === data.results.length - 1){
+            data.results.forEach(function(pokemon){
+              let pokemonObject = {
+                name: pokemon.name,
+                detailsUrl: pokemon.url,
+                imgUrl: "",
+                height: ""
+              };
+              add(pokemonObject);
+            });
+
+            renderPokemonList();
+          }
+        }).catch(function(error) {
+          hideLoadingMessage();
+          console.error('error getting pokemon', error);
+    });
+  });
+  }).catch(function(error){
+    hideLoadingMessage();
+    console.error('error getting pokemon list', error);
+  });
+}
   }
   return {
     add: add,
