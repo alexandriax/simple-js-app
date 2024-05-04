@@ -80,9 +80,18 @@ let pokemonList = (function () {
 
   }
 
+  function hideLoadingMessage() {
+    document.getElementById('loading-message').style.display = 'hidden';
+  }
+
+  function showLoadingMessage(){
+    document.getElementById('loading-message').style.display = '';
+  }
+
   function LoadList (){
     showLoadingMessage();
     fetch('https://pokeapi.co/api/v2/pokemon/').then(function(response) {
+    hideLoadingMessage(); 
     return response.json();
     }).then(function(data){
       data.results.forEach(function(pokemon, index){
@@ -128,7 +137,9 @@ let pokemonList = (function () {
 }
 
   function loadDetails(pokemon) {
+    showLoadingMessage();
     fetch(pokemon.detailsUrl).then(function(response){
+      hideLoadingMessage();
       return response.json();
     }).then(function(data){
       if (data.height !== undefined) {
