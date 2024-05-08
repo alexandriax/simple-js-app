@@ -42,9 +42,11 @@ for(let i=0; i<pokemonList.length; i++) {
 
 
 let pokemonList = (function () {
+let pokemonList = (() => {
   let pokemonList = [];
 
   function add(pokemon) {
+  const add = (pokemon) => {
     if(typeof pokemon === 'object') {
       pokemonList.push(pokemon);
     } else {
@@ -52,19 +54,25 @@ let pokemonList = (function () {
     }
     
   }
+  };
 
 
   function getAll() {
     return pokemonList;
   }
+  const getAll = () => pokemonList; 
 
   function addEventListenerButton(button, pokemon) {
     button.addEventListener('click', function() {
+  const addEventListenerButton = (button, pokemon) => {
+    button.addEventListener('click', () => showDetails(pokemon));
       showDetails(pokemon);
     });
   }
+    };
 
   function addListItem(pokemon){
+  const addListItem = (pokemon) => {
     let pokemonRepository = document.querySelector('.pokemon-list');
     let listpokemon = document.createElement('li');
     let button = document.createElement('button');
@@ -74,27 +82,41 @@ let pokemonList = (function () {
     pokemonRepository.appendChild(listpokemon);
     addEventListenerButton(button, pokemon);
   }
+  };
 
   function showDetails(pokemon){ // event listener
+  const showDetails = (pokemon) => { // event listener
     loadDetails(pokemon);
+  };
 
   }
 
   function hideLoadingMessage() {
     document.getElementById('loading-message').style.display = 'hidden';
   }
+  const hideLoadingMessage = () => {
+    document.getElementById('loading-message').style.display = 'none';
+  };
 
   function showLoadingMessage(){
+  const showLoadingMessage = () => {
     document.getElementById('loading-message').style.display = '';
   }
+  };
 
   function LoadList (){
+  const LoadList = () => {
     showLoadingMessage();
     fetch('https://pokeapi.co/api/v2/pokemon/').then(function(response) {
+    fetch('https://pokeapi.co/api/v2/pokemon/')
+    .then((response) => {
     hideLoadingMessage(); 
     return response.json();
     }).then(function(data){
       data.results.forEach(function(pokemon, index){
+    })
+    .then((data) => {
+      data.results.forEach((pokemon, index) => {
         let pokemonObject = {
           name: pokemon.name,
           detailsUrl: pokemon.url
@@ -104,6 +126,9 @@ let pokemonList = (function () {
         fetch(pokemonDetailsUrl).then(function(response) {
           return response.json();
         }).then(function(pokemonData){
+        fetch(pokemonDetailsUrl)
+        .then((response) => response.json())
+        .then((pokemonData) => {
           if(pokemonData.sprites && pokemonData.sprites.front_default) {
             pokemonObject.imgUrl = pokemonData.sprites.front_default;
           }else {
@@ -114,34 +139,47 @@ let pokemonList = (function () {
 
           if (index === data.results.length - 1){
             data.results.forEach(function(pokemon){
+            data.results.forEach((pokemon) => {
               let pokemonObject = {
                 name: pokemon.name,
                 detailsUrl: pokemon.url,
                 imgUrl: "",
                 height: ""
+                imgUrl: '',
+                height: ''
               };
               add(pokemonObject);
             });
 
             renderPokemonList();
+            
           }
         }).catch(function(error) {
+        })
+        .catch((error) => {
           hideLoadingMessage();
           console.error('error getting pokemon', error);
     });
   });
   }).catch(function(error){
+  }).catch((error) => {
     hideLoadingMessage();
     console.error('error getting pokemon list', error);
   });
 }
+};
 
   function loadDetails(pokemon) {
+  const loadDetails = (pokemon) => {
     showLoadingMessage();
     fetch(pokemon.detailsUrl).then(function(response){
+    fetch(pokemon.detailsUrl)
+    .then((response) => {
       hideLoadingMessage();
       return response.json();
     }).then(function(data){
+      })
+      .then((data) => {
       if (data.height !== undefined) {
         pokemon.height = data.height;
       }else {
@@ -162,6 +200,7 @@ let pokemonList = (function () {
 
       console.log('loaded details for', pokemon.name, ':', pokemon);
     }).catch(function(error) {
+    }).catch((error) => {
       hideLoadingMessage();
       console.error(`error getting details for ${pokemon.name}`, error);
     });
@@ -169,9 +208,13 @@ let pokemonList = (function () {
 
   function renderPokemonList(){
     getAll().forEach(function(pokemon) {
+
+  const renderPokemonList = () => {
+    getAll().forEach((pokemon) => {
       addListItem(pokemon);
     });
   }
+  };
 
   return {
     add: add,
@@ -185,12 +228,14 @@ let pokemonList = (function () {
 pokemonList.LoadList();
 
 pokemonList.getAll().forEach(function(pokemon) {
+pokemonList.getAll().forEach((pokemon) => {
   let keys = Object.keys(pokemon);
 
   pokemonList.addListItem(pokemon);
 
 
   keys.forEach(function(key){
+  keys.forEach((key) => {
     document.write(key + ': ' + pokemon[key] + ' ');
   });
   //document.write(pokemon.name + ' height: ' + pokemon.height + ' ')
