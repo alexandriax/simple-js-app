@@ -185,6 +185,58 @@ let pokemonList = (() => {
   };
 })();
 
+// modal start
+/*
+(function createModal() {
+
+  let modalContainer = document.querySelector('#modal-container');
+
+  function showModal(title, text) {
+    modalContainer.innerHTML = '';
+    let modal = document.createElement('div');
+    modal.classList.add('modal');
+
+    let closeButtonElement = document.createElement('button');
+      closeButtonElement.classList.add('modal-close');
+      closeButtonElement.innerText = 'close';
+      closeButtonElement.addEventListener('click, hideModal');
+
+      let titleElement = document.createElement('h1');
+        titleElement.innerText = title;
+
+      let contentElement = document.createElement('p');
+        contentElement.innerText = text;
+
+        modal.appendChild(closeButtonElement);
+        modal.appendChild(titleElement);
+        modal.appendChild(contentElement);
+        modalContainer.appendChild(modal);
+
+        modalContainer.classList.add('is-visible');
+  }
+
+  function hideModal() {
+    modalContainer.classList.remove('is-visible');
+  }
+
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modalContainer.classList.contains('is-visible')) {
+      hideModal();
+    }
+  });
+
+  document.querySelector('#show-modal').addEventListener('click', () => {
+    showModal('placeholder', 'content');
+  });
+
+  return {
+    showModal,
+    hideModal
+  };
+
+})(); */
+// modal end
+
 pokemonList.LoadList();
 
 pokemonList.getAll().forEach(function(pokemon) {
