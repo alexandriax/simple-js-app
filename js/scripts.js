@@ -118,10 +118,8 @@ let pokemonList = (() => {
                 imgUrl: '',
                 height: ''
               };
-              add(pokemonObject);
             });
 
-            renderPokemonList();
             
           }
         })
@@ -129,7 +127,9 @@ let pokemonList = (() => {
           hideLoadingMessage();
           console.error('error getting pokemon', error);
     });
+    add(pokemonObject);
   });
+  renderPokemonList();
   }).catch((error) => {
     hideLoadingMessage();
     console.error('error getting pokemon list', error);
@@ -239,14 +239,12 @@ let pokemonList = (() => {
 
 pokemonList.LoadList();
 
-pokemonList.getAll().forEach(function(pokemon) {
 pokemonList.getAll().forEach((pokemon) => {
   let keys = Object.keys(pokemon);
 
   pokemonList.addListItem(pokemon);
 
 
-  keys.forEach(function(key){
   keys.forEach((key) => {
     document.write(key + ': ' + pokemon[key] + ' ');
   });
