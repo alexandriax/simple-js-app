@@ -160,6 +160,46 @@ let pokemonList = (() => {
     }
   }
 
+  /*function showDialog(title, text) {
+    showModal(title, text);
+  
+    let modal = modalContainer.querySelector('.modal');
+
+    let confirmButton = document.createElement('button');
+    confirmButton.classList.add('modal-confirm');
+    confirmButton.innerText = 'confirm'
+  
+    let cancelButton = document.createElement('button');
+    cancelButton.classList.add('modal-cancel')
+    cancelButton.innerText = 'cancel';
+  
+    modal.appendChild(confirmButton);
+    modal.appendChild(cancelButton);
+  
+    // allows user to just hit enter
+    confirmButton.focus();
+    //let modalContainer = document.querySelector('#modal-container');
+
+    return new Promise((resolve, reject) => {
+      cancelButton.addEventListener('click', hideModal);
+
+      confirmButton.addEventListener('click', () => {
+        dialogPromiseReject = null;
+        hideModal();
+        resolve();
+      });
+
+      dialogPromiseReject = reject;
+    });  
+  }
+
+  document.querySelector('#show-dialog').addEventListener('click', () => {
+    showDialog('confirm action', 'are you sure you want to do this?').then(function() {
+      alert('confirmed!');
+    }, () => {
+      alert('not confirmed');
+    });
+  });*/
 
   window.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && modalContainer.classList.contains('is-visible')) {
