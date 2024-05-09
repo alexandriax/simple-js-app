@@ -44,7 +44,7 @@ hr.solid {
 
 
 /* placeholder modal styling start */
-/*
+
 #modal-container {
     position: fixed;
     padding: 20px;
@@ -55,10 +55,10 @@ hr.solid {
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
 
-    /* shows it above other content 
+    /* shows it above other content */
     z-index: 999;
 
-    /* allows scrolling if screen isn't large enough 
+    /* allows scrolling if screen isn't large enough */
     overflow:auto;
     display: grid;
     text-align: center;
@@ -98,7 +98,7 @@ hr.solid {
     
 #modal-container.is-visible {
     display: block; 
-    /* css for modal container goes here 
+    /* css for modal container goes here */
 } 
 /* placeholder modal styling end */
 
