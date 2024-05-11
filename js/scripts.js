@@ -47,13 +47,13 @@ let pokemonList = (function() {
      heightParagraph.textContent = 'Height: ' + pokemon.height;
 
      const typeParagraph = document.createElement('p');
-     typeParagraph.textContent = 'type: ' + pokemon.type;
+     typeParagraph.textContent = 'type: ' + pokemon.type.map(typeObj => typeObj.type.name).join(", ");
 
      const imageElement = document.createElement('img');
      imageElement.src = pokemon.imgUrl;
      imageElement.alt = pokemon.name;
 
-     const modalContent = document.getElementById('modal-content');
+     const modalContent = document.querySelector('.modal-content');
      modalContent.innerHTML ='';
 
      modalContent.appendChild(modalTitle);
@@ -61,19 +61,20 @@ let pokemonList = (function() {
      modalContent.appendChild(typeParagraph);
      modalContent.appendChild(imageElement);
 
+     modalContainer.classList.add('is-visible');
 
-      let contentElement = document.createElement('p');
-        contentElement.innerText = text;
+     const closeButtonElement = document.querySelector('.modal-close');
+     closeButtonElement.addEventListener('click', function() {
+        hideModal();
+     })
 
-        modal.appendChild(closeButtonElement);
-        modal.appendChild(titleElement);
-        modal.appendChild(contentElement);
-        modalContainer.appendChild(modal);
      modalContainer.addEventListener('click', function(e) {
       let Target = e.target;
       if(Target === modalContainer) {
         hideModal();
       }
+     });
+};
 
   //modal start
 
@@ -99,12 +100,12 @@ let pokemonList = (function() {
     document.getElementById('loading-message').style.display = '';
   };
 
-  const LoadList = function() {
+  const loadList = function() {
     showLoadingMessage();
     fetch('https://pokeapi.co/api/v2/pokemon/')
     .then(function(response) {
-    hideLoadingMessage(); 
-    return response.json();
+      hideLoadingMessage(); 
+      return response.json();
     })
     .then(function(data) {
       data.results.forEach(function(pokemon, index) {
@@ -125,6 +126,10 @@ let pokemonList = (function() {
           }else {
             console.error('img not found for', pokemon.name);
           }
+
+          pokemonObject.height = pokemonData.height;
+          pokemonObject.type = pokemonData.types;
+          console.log(pokemonObject)
         })
         .catch(function(error) {
           hideLoadingMessage();
@@ -139,6 +144,9 @@ let pokemonList = (function() {
     console.error('error getting pokemon list', error);
   });
   };
+
+  // modal end
+
 
   const loadDetails = function(pokemon) {
     showLoadingMessage();
@@ -171,7 +179,7 @@ let pokemonList = (function() {
       hideLoadingMessage();
       console.error(`error getting details for ${pokemon.name}`, error);
     });
-  };
+  }; 
 
   
   const renderPokemonList = function() {
@@ -185,11 +193,12 @@ let pokemonList = (function() {
     add: add,
     getAll: getAll,
     addListItem: addListItem,
-    LoadList: LoadList,
+    loadList: loadList,
     loadDetails: loadDetails
   };
 })();
 
+pokemonList.loadList();
 
 function filterItems(arr, query) {
   return arr.filter(function(el) {
