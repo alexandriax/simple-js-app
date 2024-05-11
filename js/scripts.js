@@ -2,6 +2,9 @@
 let pokemonList = (function() {
   let pokemonList = [];
 
+  // allow modal access in multiple places
+  let modalContainer = document.querySelector('#modal-container');
+
   function add(pokemon) {
     if(typeof pokemon === 'object') {
       pokemonList.push(pokemon);
