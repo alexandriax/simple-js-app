@@ -6,8 +6,10 @@
         <title>Simple JS App</title>
         <link rel="shortcut icon" href="img/pkfavicon.png">
         <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Asap:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href=
+        "https://fonts.googleapis.com/css2?family=Asap:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="css/styles.css">
     </head>
     <body>
@@ -33,20 +35,15 @@
         <hr class="solid">
 
         <main>
-
-           <div id="modal-template" class="modal-template">
-            <div class="modalContainer">
-                <button class="modal-close">close</button>
-                <div class="modal-content">
-                    <h1></h1>
-                    <div class="modal-body"></div>
-                </div>
-            </div>
-           </div>
-
-            <ul class="pokemon-list"></ul>
-            <div id="loading-message">loading...</div>
-
+             <div id="modal-container">
+             <div class="modal">
+                 <button class="modal-close">close</button>
+                 <div class="modal-content">
+                 </div>
+             </div>
+             </div>
+               <ul class="pokemon-list"></ul>
+             <div id="loading-message">loading...</div>
         </main>
         <script src="js/promise-polyfill.js"></script>
         <script src="js/fetch-polyfill.js"></script>
