@@ -1,79 +1,43 @@
-/*
-let pokemonList = [
-    {
-      name: 'Bulbasaur',
-      height: 5,
-      types: ['grass', 'poison'],
-    },
 
-    {
-      name: 'Ninetales',
-      height: 7,
-      types: ['fire'],
-    },
-
-    {
-      name: "Gengar",
-      height: 4,
-      types: ['ghost', 'poison'],
-    },
-
-    {
-      name: 'Ditto',
-      height: 1,
-      types: ['normal'],
-    }
-];
-*/
-
-/*
-for(let i=0; i<pokemonList.length; i++) {
-    document.write(pokemonList[i].name    + ' (height: ' + pokemonList[i].height + ') ' + '  ');
-    if (pokemonList[i].height <=2) {
-        document.write(' That\'s a tiny pokemon! ');
-    }else if (pokemonList[i].height >2 && pokemonList[i].height <=5) {
-        document.write(' <br>  ');
-    }else {
-        document.write(' That\'s a huge pokemon! ');
-        document.write(' <br>  ')
-    }
-}
-*/
-
-
-let pokemonList = (() => {
+let pokemonList = (function() {
   let pokemonList = [];
 
-  const add = (pokemon) => {
+  function add(pokemon) {
     if(typeof pokemon === 'object') {
       pokemonList.push(pokemon);
     } else {
       console.error('only add objects!');
     }
-    
   };
 
+  function getAll() {
+    return pokemonList; 
+  }
 
-  const getAll = () => pokemonList; 
-
-  const addEventListenerButton = (button, pokemon) => {
-    button.addEventListener('click', () => showDetails(pokemon));
+  function addEventListenerButton(button, pokemon) {
+    button.addEventListener('click', function() { 
       showDetails(pokemon);
-    };
+    });
+      showDetails(pokemon);
+  };
 
-  const addListItem = (pokemon) => {
+  function addListItem(pokemon) {
     let pokemonRepository = document.querySelector('.pokemon-list');
+
     let listpokemon = document.createElement('li');
+
     let button = document.createElement('button');
     button.innerText = pokemon.name;
     button.classList.add('button-class');
-    listpokemon.appendChild(button);
+
+    listpokemon.appendChild(button)
+
     pokemonRepository.appendChild(listpokemon);
     addEventListenerButton(button, pokemon);
   };
 
-  const showDetails = (pokemon) => { // event listener
-    loadDetails(pokemon).then((data) => {
+  function showDetails(pokemon)  { // event listener
+    loadDetails(pokemon).then(function(data) {
       //modal elements
      const modalTitle = document.createElement('h1');
      modalTitle.textContext = pokemon.name;
@@ -98,7 +62,7 @@ let pokemonList = (() => {
 
      showModal('pokemon details')
     })
-    .catch((error) => {
+    .catch(function(error) {
       console.error('error loading' + pokemon.name, error);
     });
   };
@@ -107,7 +71,7 @@ let pokemonList = (() => {
 
   (function createModal() {
 
-   let modalContainer = document.querySelector('#modal-container');
+   //let modalContainer = document.querySelector('#modal-container');
 
    function showModal(title, text) {
       modalContainer.innerHTML = '';
@@ -138,7 +102,7 @@ let pokemonList = (() => {
 
         modalContainer.classList.add('is-visible');
         
-        modalContainer.addEventListener('click', (e) => {
+        modalContainer.addEventListener('click', function(e) {
           let target = e.target;
           if (target === modalContainer) {
             hideModal();
@@ -160,48 +124,7 @@ let pokemonList = (() => {
     }
   }
 
-  /*function showDialog(title, text) {
-    showModal(title, text);
-  
-    let modal = modalContainer.querySelector('.modal');
-
-    let confirmButton = document.createElement('button');
-    confirmButton.classList.add('modal-confirm');
-    confirmButton.innerText = 'confirm'
-  
-    let cancelButton = document.createElement('button');
-    cancelButton.classList.add('modal-cancel')
-    cancelButton.innerText = 'cancel';
-  
-    modal.appendChild(confirmButton);
-    modal.appendChild(cancelButton);
-  
-    // allows user to just hit enter
-    confirmButton.focus();
-    //let modalContainer = document.querySelector('#modal-container');
-
-    return new Promise((resolve, reject) => {
-      cancelButton.addEventListener('click', hideModal);
-
-      confirmButton.addEventListener('click', () => {
-        dialogPromiseReject = null;
-        hideModal();
-        resolve();
-      });
-
-      dialogPromiseReject = reject;
-    });  
-  }
-
-  document.querySelector('#show-dialog').addEventListener('click', () => {
-    showDialog('confirm action', 'are you sure you want to do this?').then(function() {
-      alert('confirmed!');
-    }, () => {
-      alert('not confirmed');
-    });
-  });*/
-
-  window.addEventListener('keydown', (e) => {
+  window.addEventListener('keydown', function(e) {
     if (e.key === 'Escape' && modalContainer.classList.contains('is-visible')) {
       hideModal();
     }
