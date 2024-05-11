@@ -108,11 +108,11 @@ let pokemonList = (function() {
             hideModal();
           }
         });
-  }
+      }
 
-  document.querySelector ('#show-modal').addEventListener('click',() => {
+   document.querySelector ('#show-modal').addEventListener('click',function() {
     showModal('modal title', 'this is the modal content!');
-  });
+   } );
 
   function hideModal() {
     let modalContainer = document.querySelector('#modal-container');
@@ -130,7 +130,7 @@ let pokemonList = (function() {
     }
   }); // removes modal w esc
 
-  document.querySelector('#show-modal').addEventListener('click', () => {
+  document.querySelector('#show-modal').addEventListener('click', function() {
     showModal('pokemonList', 'pokemonList.content'); // idk if this is right lol
   });
 
@@ -139,31 +139,31 @@ let pokemonList = (function() {
     hideModal
   };
 
-})(); 
+  });
 
-
-// modal end
+  let { showModal, hideModal } = createModal();
+  // modal end
   
     
-});
 
-  const hideLoadingMessage = () => {
+
+  const hideLoadingMessage = function() {
     document.getElementById('loading-message').style.display = 'none';
   };
 
-  const showLoadingMessage = () => {
+  const showLoadingMessage = function() {
     document.getElementById('loading-message').style.display = '';
   };
 
-  const LoadList = () => {
+  const LoadList = function() {
     showLoadingMessage();
     fetch('https://pokeapi.co/api/v2/pokemon/')
-    .then((response) => {
+    .then(function(response) {
     hideLoadingMessage(); 
     return response.json();
     })
-    .then((data) => {
-      data.results.forEach((pokemon, index) => {
+    .then(function(data) {
+      data.results.forEach(function(pokemon, index) {
         let pokemonObject = {
           name: pokemon.name,
           detailsUrl: pokemon.url
@@ -171,8 +171,11 @@ let pokemonList = (function() {
 
         let pokemonDetailsUrl = `https://pokeapi.co/api/v2/pokemon/${index + 1}`;
         fetch(pokemonDetailsUrl)
-        .then((response) => response.json())
-        .then((pokemonData) => {
+        .then(function(response) {
+          hideLoadingMessage();
+          return response.json();
+        })
+        .then(function(pokemonData) {
           if(pokemonData.sprites && pokemonData.sprites.front_default) {
             pokemonObject.imgUrl = pokemonData.sprites.front_default;
           }else {
@@ -182,7 +185,7 @@ let pokemonList = (function() {
           pokemonObject.height = pokemonData.height; 
 
           if (index === data.results.length - 1){
-            data.results.forEach((pokemon) => {
+            data.results.forEach(function(pokemon) {
               let pokemonObject = {
                 name: pokemon.name,
                 detailsUrl: pokemon.url,
@@ -194,27 +197,28 @@ let pokemonList = (function() {
             
           }
         })
-        .catch((error) => {
+        .catch(function(error) {
           hideLoadingMessage();
           console.error('error getting pokemon', error);
     });
     add(pokemonObject);
   });
+
   renderPokemonList();
-  }).catch((error) => {
+  }).catch(function(error) {
     hideLoadingMessage();
     console.error('error getting pokemon list', error);
   });
-};
+  };
 
-  const loadDetails = (pokemon) => {
+  const loadDetails = function(pokemon) {
     showLoadingMessage();
     fetch(pokemon.detailsUrl)
-    .then((response) => {
+    .then(function(response) {
       hideLoadingMessage();
       return response.json();
       })
-      .then((data) => {
+      .then(function(data) {
       if (data.height !== undefined) {
         pokemon.height = data.height;
       }else {
@@ -234,18 +238,38 @@ let pokemonList = (function() {
       }
 
       console.log('loaded details for', pokemon.name, ':', pokemon);
-    }).catch((error) => {
+    }).catch(function(error) {
       hideLoadingMessage();
       console.error(`error getting details for ${pokemon.name}`, error);
     });
-  }
+  };
 
   
-  const renderPokemonList = () => {
-    getAll().forEach((pokemon) => {
+  const renderPokemonList = function() {
+    getAll().forEach(function(pokemon) {
       addListItem(pokemon);
     });
   };
+
+  pokemonList.getAll().forEach(function(pokemon) {
+    let keys = Object.keys(pokemon);
+  
+    pokemonList.addListItem(pokemon);
+  
+  
+    keys.forEach(function(key) {
+      document.write(key + ': ' + pokemon[key] + ' ');
+    });
+    //document.write(pokemon.name + ' height: ' + pokemon.height + ' ')
+    if (pokemon.height <=2) {
+      document.write(' That\'s a tiny pokemon! ');
+    }else if (pokemonList.height > 2 && pokemonList.height <= 5) {
+      document.write(' <br>  ');
+    }else if(pokemon.height > 5) { 
+      document.write(' That\'s a huge pokemon! ');
+    }  
+    document.write(' <br>  ');
+  });
 
   return{
     add: add,
@@ -254,32 +278,29 @@ let pokemonList = (function() {
     LoadList: LoadList,
     loadDetails: loadDetails
   };
+})();
 
-pokemonList.LoadList();
-
-pokemonList.getAll().forEach((pokemon) => {
-  let keys = Object.keys(pokemon);
-
-  pokemonList.addListItem(pokemon);
-
-
-  keys.forEach((key) => {
-    document.write(key + ': ' + pokemon[key] + ' ');
+pokemonList.loadList().then(function() {
+  // writes the name of each pokemon
+  pokemonRepository.getAll().forEach(function(pokemon) {
+    pokemonRepository.addListItem(pokemon);
   });
-  //document.write(pokemon.name + ' height: ' + pokemon.height + ' ')
-  if (pokemon.height <=2) {
-    document.write(' That\'s a tiny pokemon! ');
-  }else if (pokemonList.height > 2 && pokemonList.height <= 5) {
-    document.write(' <br>  ');
-  }else if(pokemon.height > 5) { 
-    document.write(' That\'s a huge pokemon! ');
-  }  
-  document.write(' <br>  ');
 });
 
 function filterItems(arr, query) {
-  return arr.filter((el) => el.name.toLowerCase().includes(query.toLowerCase()));
-}
+  return arr.filter(function(el) {
+   return el.name.toLowerCase().includes(query.toLowerCase());
+  });
+};
+
+
+
+
+
+
+
+
+
 
 console.log(filterItems(pokemonList.getAll(), 'bu')); //[bulbasaur]
 console.log(filterItems(pokemonList.getAll(), 'ni')); //[ninetales]
