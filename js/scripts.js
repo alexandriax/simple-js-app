@@ -38,7 +38,45 @@ let pokemonList = (function() {
     addEventListenerButton(button, pokemon);
   };
 
-  function showDetails(pokemon)  { // event listener
+  // attempt
+    // show modal content
+    function showDetails(item) {
+      let modalBody = $('.modal .modal-body');
+      let modalTitle = $('.modal .modal-title');
+      
+  
+      modalBody.empty();
+      modalTitle.empty();
+  
+  
+      $('.modal-title').text(item.name);
+  
+      // create element name
+      let nameElement = $("<h1>" + item.name + "</h1>");
+      // create element image
+      let imageElementFront = $('<img class="modal-img" style="width:50%">').attr("src", item.imgeUrlFront);
+      imageElementFront.attr("src", item.imgUrlFront);
+      // create element height
+      let heightElement = $("<p>" + "height : " + item.height + "</p>");
+      // create element weight
+      let weightElement = $("<p>" + "weight : " + item.weight + "</p>");
+      // create element types
+      let typeElement = $("<p>" + "types : " + item.type + "</p>");
+      let abilitiesElement = $("<p>Abilities: " + item.abilities + "</p>");
+     
+      
+  
+      modalTitle.append(nameElement);
+      modalBody.append(imageElementFront);
+      modalBody.append(heightElement);
+      modalBody.append(weightElement);
+      modalBody.append(typeElement);
+      modalBody.append(abilitiesElement);
+  
+      $('#modalContainer').modal('show');
+    }
+
+  /*function showDetails(pokemon)  { // event listener
       //modal elements
      const modalTitle = document.createElement('h1');
      modalTitle.textContext = pokemon.name;
@@ -74,7 +112,7 @@ let pokemonList = (function() {
         hideModal();
       }
      });
-};
+};*/
 
   //modal start
 
