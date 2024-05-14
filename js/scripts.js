@@ -1,9 +1,9 @@
 
 let pokemonList = (function() {
   let pokemonList = [];
-
+  
   // allow modal access in multiple places
-  let modalContainer = document.querySelector('#modal-container');
+let modalContainer = $('#modal-container');
 
   function add(pokemon) {
     if(typeof pokemon === 'object') {
@@ -32,7 +32,7 @@ let pokemonList = (function() {
     button.innerText = pokemon.name;
     button.classList.add('button-class');
 
-    listpokemon.appendChild(button)
+    listpokemon.appendChild(button);
 
     pokemonRepository.appendChild(listpokemon);
     addEventListenerButton(button, pokemon);
@@ -41,8 +41,8 @@ let pokemonList = (function() {
   // attempt
     // show modal content
     function showDetails(item) {
-      let modalBody = $('.modal .modal-body');
-      let modalTitle = $('.modal .modal-title');
+      let modalBody = $('.modal-body');
+      let modalTitle = $('.modal-title');
       
   
       modalBody.empty();
@@ -63,9 +63,7 @@ let pokemonList = (function() {
       // create element types
       let typeElement = $("<p>" + "types : " + item.type + "</p>");
       let abilitiesElement = $("<p>Abilities: " + item.abilities + "</p>");
-     
       
-  
       modalTitle.append(nameElement);
       modalBody.append(imageElementFront);
       modalBody.append(heightElement);
@@ -119,12 +117,11 @@ let pokemonList = (function() {
  
 
   function hideModal() {
-    let modalContainer = document.querySelector('#modal-container');
-    modalContainer.classList.remove('is-visible');
+    modalContainer.modal('hide');
   }
 
   window.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape' && modalContainer.classList.contains('is-visible')) {
+    if (e.key === 'Escape' && modalContainer.hasClass('show')) {
       hideModal();
     }
   }); // removes modal w esc
@@ -167,7 +164,9 @@ let pokemonList = (function() {
 
           pokemonObject.height = pokemonData.height;
           pokemonObject.type = pokemonData.types;
-          console.log(pokemonObject)
+          pokemonObject.abilities = pokemonData.abilities;
+          add(pokemonObject);
+          addListItem(pokemonObject);
         })
         .catch(function(error) {
           hideLoadingMessage();
@@ -188,13 +187,13 @@ let pokemonList = (function() {
 
   const loadDetails = function(pokemon) {
     showLoadingMessage();
-    fetch(pokemon.detailsUrl)
+    return fetch(pokemon.detailsUrl)
     .then(function(response) {
       hideLoadingMessage();
       return response.json();
       })
       .then(function(data) {
-      if (data.height !== undefined) {
+        pokemon.imgUrlFront = data.sprites.front_default;
         pokemon.height = data.height;
       }else {
         console.error('height is missing for', pokemon.name);
