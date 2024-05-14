@@ -18,8 +18,11 @@ let modalContainer = $('#modal-container');
   }
 
   function addEventListenerButton(button, pokemon) {
-    button.addEventListener('click', function() { 
-      showDetails(pokemon);
+    button.addEventListener('click', function() {
+      loadDetails(pokemon).then(function(){
+        showDetails(pokemon);
+
+      });
     });
   };
 
@@ -27,10 +30,12 @@ let modalContainer = $('#modal-container');
     let pokemonRepository = document.querySelector('.pokemon-list');
 
     let listpokemon = document.createElement('li');
-
+    
     let button = document.createElement('button');
     button.innerText = pokemon.name;
-    button.classList.add('button-class');
+    button.classList.add('btn', 'btn-outline-secondary');
+    button.setAttribute('data-toggle', 'modal');
+    button.setAttribute('data-target', '#modal-container');
 
     listpokemon.appendChild(button);
 
