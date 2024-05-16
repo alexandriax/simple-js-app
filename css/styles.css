@@ -1,8 +1,13 @@
 :root {
     /* colors used */
-    --background: #fffefa;
-    --lightText: #c5bebe;
-    --text: #625f5f;    
+    --background: #fffdf3;
+    --highlight: #fffceb;
+    --lightText: #948d7b;
+    --text: #2e2412; 
+    --lightAttn: #f6e0b5;
+    --lightAttnAlt: #aeba99;
+    --darkAttn: #8ba185;
+    --medAttn: #d2cac5;
 } 
     
 body{
