@@ -39,6 +39,11 @@ body{
         margin: 1px 20px 10px 5px;
         padding: 5px 20px 10px 7px;
 }
+
+.navbar {
+    background-color: var(--highlight);
+}
+
     
 ul {
         list-style-type: none;
