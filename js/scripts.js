@@ -60,7 +60,6 @@ let modalContainer = $('#modal-container');
       let imageElementFront = $('<img class="modal-img" style="width:50%">').attr("src", item.imgUrlFront);
       imageElementFront.attr("src", item.imgUrlFront);
       // create element height
-      let heightElement = $("<p>" + "height : " + item.height + "</p>");
       let heightElement = $("<p>" + "<span class='label'>" + "height : " + "</span>" + item.height + "</p>");
       // create element weight
       let weightElement = $("<p>" + "<span class='label'>" + "weight : " + "</span>" + item.weight + "</p>");
