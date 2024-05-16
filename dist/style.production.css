@@ -1,0 +1,126 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v8.4.14,
+* Autoprefixer: v10.4.7
+* Browsers: last 4 version
+*/
+
+
+.archivo-narrow-lc {
+    font-family: "Archivo Narrow", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    
+}
+
+.bebas-neue-regular {
+    font-family: "Bebas Neue", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+}
+
+body{
+        background-color: #fffdf3;
+        font-family: 'Bebas Neue', sans-serif, sans-serif;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 1.6;
+        letter-spacing: 0.4rem; 
+        color: #2e2412;
+        margin: 1px 20px 10px 5px;
+        padding: 5px 20px 10px 7px;
+}
+
+.navbar {
+    background-color: #fffceb;
+}
+
+main{
+    font-family: 'Archivo Narrow', sans-serif;
+    letter-spacing: 0.2rem;
+}
+    
+ul {
+        list-style-type: none;
+}
+
+.pokemon-list{
+    list-style-type: none;
+    padding-left:0;
+
+}
+    
+
+    
+hr.solid {
+        border-top: 2px solid;
+}
+
+.label{
+    font-family: 'Bebas Neue', sans-serif;
+}
+
+.modal-dialog {
+    max-width: 700px;
+    margin: 1.75rem auto;
+}
+
+.modal-content{
+    padding: 15px;
+}
+
+.modal-body img.modal-img{
+    width: 100%;
+    max-width: 50%;
+    display: block;
+    margin: 0 auto 20px auto;
+}
+
+.modal-header .close{
+    margin: -1rem -1rem -1rem auto;
+}
+
+ /* placeholder styling for load message */
+ #loading-message {
+        display: block; 
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+                transform: translate(-50%, -50%);
+        background-color: rgba(255, 255, 255, 0.8);
+        padding: 20px;
+        border-radius: 5px;
+        -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        z-index: 9999;
+}
+    
+@media all and (max-width: 500px) {
+        .grid {
+            -ms-grid-columns: 1fr;
+            grid-template-columns: 1fr;
+        }    
+}
+    
+@media all and (min-width: 500px) and (max-width: 750px){
+        .grid {
+            -ms-grid-columns: 1fr 1fr;
+            grid-template-columns: 1fr 1fr;
+        }
+}
+    
+@media all and (max-width: 750px) {
+    .grid {
+         grid-gap: 10px;
+     }
+    .grid__item :last-child {
+         grid-column: auto / auto;
+         grid-row: auto / auto;
+        }
+    h1 {
+         font-size: 22px;
+        }
+    }
