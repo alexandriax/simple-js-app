@@ -32,6 +32,7 @@
 body{
         background-color: var(--background);
         font-family: "Asap", sans-serif;
+        font-family: var(--txtAttn), sans-serif;
         font-weight: 400;
         font-size: 16px;
         line-height: 1.6;
@@ -45,14 +46,29 @@ body{
     background-color: var(--highlight);
 }
 
+main{
+    font-family: var(--txtReg);
     letter-spacing: 0.2rem;
+}
     
 ul {
         list-style-type: none;
 }
+
+.pokemon-list{
+    list-style-type: none;
+    padding-left:0;
+
+}
+    
+
     
 hr.solid {
         border-top: 2px solid;
+}
+
+.label{
+    font-family: var(--txtAttn);
 }
 
 .modal-dialog {
