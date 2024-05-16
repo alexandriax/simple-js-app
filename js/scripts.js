@@ -62,10 +62,10 @@ let modalContainer = $('#modal-container');
       // create element height
       let heightElement = $("<p>" + "height : " + item.height + "</p>");
       // create element weight
-      let weightElement = $("<p>" + "weight : " + item.weight + "</p>");
-      // create element types
-      let typeElement = $("<p>" + "types : " + item.type + "</p>");
-      let abilitiesElement = $("<p>Abilities: " + item.abilities + "</p>");
+      let weightElement = $("<p>" + "<span class='label'>" + "weight : " + "</span>" + item.weight + "</p>");
+      // create element types,
+      let typeElement = $("<p>" + "<span class='label'>" + "types : " + "</span>" + item.type + "</p>");
+      let abilitiesElement = $("<p>" + "<span class='label'>" + "abilities: " + "</span>" + item.abilities + "</p>");
       
       modalTitle.append(nameElement);
       modalBody.append(imageElementFront);
@@ -134,7 +134,7 @@ let modalContainer = $('#modal-container');
           hideLoadingMessage();
           console.error('error getting pokemon', error);
     });
-    add(pokemonObject);
+    
   });
 
   renderPokemonList();
