@@ -30,6 +30,7 @@ let modalContainer = $('#modal-container');
     let pokemonRepository = document.querySelector('.pokemon-list');
 
     let listpokemon = document.createElement('li');
+    listpokemon.classList.add('col-md-3', 'pokemon-item', 'mb-4')
     
     let button = document.createElement('button');
     button.innerText = pokemon.name;
