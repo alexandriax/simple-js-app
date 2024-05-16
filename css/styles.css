@@ -8,8 +8,27 @@
     --lightAttnAlt: #aeba99;
     --darkAttn: #8ba185;
     --medAttn: #d2cac5;
-} 
     
+    /* fonts */
+    --txtReg: 'Archivo Narrow', sans-serif;
+    --txtAttn: 'Bebas Neue', sans-serif;
+
+} 
+
+.archivo-narrow-lc {
+    font-family: "Archivo Narrow", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    
+}
+
+.bebas-neue-regular {
+    font-family: "Bebas Neue", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+}
+
 body{
         background-color: var(--background);
         font-family: "Asap", sans-serif;
