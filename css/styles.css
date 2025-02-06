@@ -59,6 +59,57 @@ ul {
     padding-left:0;
 
 }
+
+/* Container perspective */
+.pokemon-list {
+    perspective: 1000px;
+}
+
+/* Card Styling */
+.pokemon.imgUrl {
+    position: relative;
+    overflow: hidden;
+    z-index: 10;
+    touch-action: none;
+    box-shadow: -5px -5px 10px -5px #ec9bb6, 5px 5px 10px -5px #ccac6f, 0 0 10px rgba(255, 255, 255, 0.5);
+    transition: transform 0.5s ease, box-shadow 0.2s ease;
+    will-change: transform, filter;
+    background-color: #040712;
+    transform-origin: center;
+}
+
+/* Shine effect */
+.pokemon.imgUrl::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0) 60%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+/* Tilt effect on hover */
+.pokemon.imgUrl:hover {
+    transform: rotateY(15deg) rotateX(15deg);
+    box-shadow: -20px -20px 30px -15px #ec9bb6, 20px 20px 30px -15px #ccac6f, 0 0 13px 4px rgba(255, 255, 255, 0.5);
+}
+
+.pokemon.imgUrl:hover::before {
+    opacity: 1;
+}
+
+/* Media queries */
+@media screen and (min-width: 600px) {
+    .pokemon.imgUrl {
+        width: clamp(12.9vw, 61vh, 18vw);
+        height: clamp(18vw, 85vh, 25.2vw);
+    }
+}
+
     
 
     

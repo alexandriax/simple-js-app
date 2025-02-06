@@ -5,6 +5,22 @@
 * Browsers: last 4 version
 */
 
+:root {
+    /* colors used */
+    --background: #fffdf3;
+    --highlight: #fffceb;
+    --lightText: #948d7b;
+    --text: #2e2412; 
+    --lightAttn: #f6e0b5;
+    --lightAttnAlt: #aeba99;
+    --darkAttn: #8ba185;
+    --medAttn: #d2cac5;
+    
+    /* fonts */
+    --txtReg: 'Archivo Narrow', sans-serif;
+    --txtAttn: 'Bebas Neue', sans-serif;
+
+} 
 
 .archivo-narrow-lc {
     font-family: "Archivo Narrow", sans-serif;
@@ -21,23 +37,23 @@
 }
 
 body{
-        background-color: #fffdf3;
-        font-family: 'Bebas Neue', sans-serif, sans-serif;
+        background-color: var(--background);
+        font-family: var(--txtAttn), sans-serif;
         font-weight: 400;
         font-size: 16px;
         line-height: 1.6;
         letter-spacing: 0.4rem; 
-        color: #2e2412;
+        color: var(--text);
         margin: 1px 20px 10px 5px;
         padding: 5px 20px 10px 7px;
 }
 
 .navbar {
-    background-color: #fffceb;
+    background-color: var(--highlight);
 }
 
 main{
-    font-family: 'Archivo Narrow', sans-serif;
+    font-family: var(--txtReg);
     letter-spacing: 0.2rem;
 }
     
@@ -50,6 +66,71 @@ ul {
     padding-left:0;
 
 }
+
+/* Container perspective */
+.pokemon-list {
+    -webkit-perspective: 1000px;
+            perspective: 1000px;
+}
+
+/* Card Styling */
+.pokemon.imgUrl {
+    position: relative;
+    overflow: hidden;
+    z-index: 10;
+    -ms-touch-action: none;
+        touch-action: none;
+    -webkit-box-shadow: -5px -5px 10px -5px #ec9bb6, 5px 5px 10px -5px #ccac6f, 0 0 10px rgba(255, 255, 255, 0.5);
+            box-shadow: -5px -5px 10px -5px #ec9bb6, 5px 5px 10px -5px #ccac6f, 0 0 10px rgba(255, 255, 255, 0.5);
+    -webkit-transition: -webkit-transform 0.5s ease, -webkit-box-shadow 0.2s ease;
+    transition: -webkit-transform 0.5s ease, -webkit-box-shadow 0.2s ease;
+    -o-transition: transform 0.5s ease, box-shadow 0.2s ease;
+    transition: transform 0.5s ease, box-shadow 0.2s ease;
+    transition: transform 0.5s ease, box-shadow 0.2s ease, -webkit-transform 0.5s ease, -webkit-box-shadow 0.2s ease;
+    will-change: transform, filter;
+    background-color: #040712;
+    -webkit-transform-origin: center;
+        -ms-transform-origin: center;
+            transform-origin: center;
+}
+
+/* Shine effect */
+.pokemon.imgUrl::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: -o-linear-gradient(315deg, rgba(255,255,255,0.2), rgba(255,255,255,0) 60%);
+    background: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0) 60%);
+    opacity: 0;
+    -webkit-transition: opacity 0.3s ease;
+    -o-transition: opacity 0.3s ease;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+/* Tilt effect on hover */
+.pokemon.imgUrl:hover {
+    -webkit-transform: rotateY(15deg) rotateX(15deg);
+            transform: rotateY(15deg) rotateX(15deg);
+    -webkit-box-shadow: -20px -20px 30px -15px #ec9bb6, 20px 20px 30px -15px #ccac6f, 0 0 13px 4px rgba(255, 255, 255, 0.5);
+            box-shadow: -20px -20px 30px -15px #ec9bb6, 20px 20px 30px -15px #ccac6f, 0 0 13px 4px rgba(255, 255, 255, 0.5);
+}
+
+.pokemon.imgUrl:hover::before {
+    opacity: 1;
+}
+
+/* Media queries */
+@media screen and (min-width: 600px) {
+    .pokemon.imgUrl {
+        width: clamp(12.9vw, 61vh, 18vw);
+        height: clamp(18vw, 85vh, 25.2vw);
+    }
+}
+
     
 
     
@@ -58,7 +139,7 @@ hr.solid {
 }
 
 .label{
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: var(--txtAttn);
 }
 
 .modal-dialog {
@@ -124,3 +205,17 @@ hr.solid {
          font-size: 22px;
         }
     }
+.example {
+    display: -ms-grid;
+    display: grid;
+    -webkit-transition: all .5s;
+    -o-transition: all .5s;
+    transition: all .5s;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+    background: -webkit-gradient(linear, left top, left bottom, from(white), to(black));
+    background: -o-linear-gradient(top, white, black);
+    background: linear-gradient(to bottom, white, black);
+}

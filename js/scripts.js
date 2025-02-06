@@ -1,3 +1,6 @@
+
+const API_KEY = window.API_KEY;
+
 let pokemonList = (function() {
   let pokemonList = [];
   let modalContainer = $('#modal-container');
@@ -14,8 +17,9 @@ let pokemonList = (function() {
     return pokemonList;
   }
 
-  function addEventListenerButton(button, pokemon) {
-    button.addEventListener('click', function() {
+  function addEventListenerCard(cardLink, pokemon) {
+    cardLink.addEventListener('click', function(event) {
+      event.preventDefault(); // Prevent default anchor behavior
       loadDetails(pokemon).then(function() {
         showDetails(pokemon);
       });
@@ -25,42 +29,39 @@ let pokemonList = (function() {
   function addListItem(pokemon) {
     let pokemonRepository = document.querySelector('.pokemon-list');
 
-    let listpokemon = document.createElement('li');
-    listpokemon.classList.add('col-md-3', 'pokemon-item', 'mb-4');
+    let listItem = document.createElement('li');
+    listItem.classList.add('col-md-3', 'pokemon-item', 'mb-4');
 
-    let button = document.createElement('button');
-    button.innerText = pokemon.name;
-    button.classList.add('btn', 'btn-outline-secondary');
-    button.setAttribute('data-toggle', 'modal');
-    button.setAttribute('data-target', '#modal-container');
+    let cardLink = document.createElement('a');
+    cardLink.href = '#'; // Prevent default navigation
 
     let imageElement = document.createElement('img');
-    imageElement.src = pokemon.imageUrl;
+    imageElement.src = pokemon.imgUrl;
     imageElement.classList.add('card-img-top');
+    cardLink.appendChild(imageElement);
 
-    button.appendChild(imageElement);
-    listpokemon.appendChild(button);
-    pokemonRepository.appendChild(listpokemon);
+    listItem.appendChild(cardLink);
+    pokemonRepository.appendChild(listItem);
 
-    addEventListenerButton(button, pokemon);
+    addEventListenerCard(cardLink, pokemon);
   }
 
-  function showDetails(pokemon) {
+  function showDetails(item) {
     let modalBody = $('.modal-body');
     let modalTitle = $('.modal-title');
 
     modalBody.empty();
     modalTitle.empty();
 
-    let nameElement = $("<h1>" + pokemon.name + "</h1>");
-    let imageElement = $('<img class="modal-img" style="width:50%">').attr("src", pokemon.imageUrl);
-    let heightElement = $("<p>" + "<span class='label'>" + "Height: " + "</span>" + pokemon.height + "</p>");
-    let weightElement = $("<p>" + "<span class='label'>" + "Weight: " + "</span>" + pokemon.weight + "</p>");
-    let typeElement = $("<p>" + "<span class='label'>" + "Types: " + "</span>" + pokemon.types + "</p>");
-    let abilitiesElement = $("<p>" + "<span class='label'>" + "Abilities: " + "</span>" + pokemon.abilities + "</p>");
+    let nameElement = $("<h1>" + item.name + "</h1>");
+    let imageElementSprite = $('<img class="modal-img" style="width:50%">').attr("src", item.imageUrl);
+    let heightElement = $("<p>" + "<span class='label'>" + "Height: " + "</span>" + item.height + "</p>");
+    let weightElement = $("<p>" + "<span class='label'>" + "Weight: " + "</span>" + item.weight + "</p>");
+    let typeElement = $("<p>" + "<span class='label'>" + "Types: " + "</span>" + item.type + "</p>");
+    let abilitiesElement = $("<p>" + "<span class='label'>" + "Abilities: " + "</span>" + item.abilities + "</p>");
 
     modalTitle.append(nameElement);
-    modalBody.append(imageElement);
+    modalBody.append(imageElementSprite);
     modalBody.append(heightElement);
     modalBody.append(weightElement);
     modalBody.append(typeElement);
@@ -89,186 +90,55 @@ let pokemonList = (function() {
 
   const loadList = function() {
     showLoadingMessage();
-    fetch('https://api.pokemontcg.io/v2/cards')
-      .then(function(response) {
-        return response.json();
-      })
-      .then(function(data) {
-        data.data.forEach(function(card) {
+    fetch('https://api.pokemontcg.io/v2/cards', {
+      headers: {
+        'X-Api-Key': API_KEY
+      }
+    })
+      .then(response => response.json())
+      .then(data => {
+        data.data.forEach(card => {
           let pokemonObject = {
             name: card.name,
-            imageUrl: card.images.small,
+            imgUrl: card.images.small,
             detailsUrl: `https://pokeapi.co/api/v2/pokemon/${card.name.toLowerCase()}`
           };
           add(pokemonObject);
           addListItem(pokemonObject);
         });
+        hideLoadingMessage();
       })
-      .catch(function(error) {
+      .catch(error => {
         hideLoadingMessage();
         console.error('Error getting Pokémon cards:', error);
-      })
-      .finally(function() {
-        hideLoadingMessage();
       });
   };
 
   const loadDetails = function(pokemon) {
     showLoadingMessage();
     return fetch(pokemon.detailsUrl)
-      .then(function(response) {
-        return response.json();
-      })
-      .then(function(data) {
-        pokemon.height = data.height;
-        pokemon.weight = data.weight;
-        pokemon.types = data.types.map(typeObj => typeObj.type.name).join(', ');
-        pokemon.abilities = data.abilities.map(abilityObj => abilityObj.ability.name).join(', ');
-      })
-      .catch(function(error) {
-        console.error(`Error getting details for ${pokemon.name}:`, error);
-      })
-      .finally(function() {
-        hideLoadingMessage();
-      });
-  };
-
-  return {
-    add: add,
-    getAll: getAll,
-    addListItem: addListItem,
-    loadList: loadList,
-    loadDetails: loadDetails
-  };
-})();
-
-pokemonList.loadList();
-
-    /* .then(function(data) {
-      data.results.forEach(function(pokemon, index) {
-        let pokemonObject = {
-          name: pokemon.name,
-          detailsUrl: pokemon.url
-        };
-
-        let pokemonDetailsUrl = `https://pokeapi.co/api/v2/pokemon/${index + 1}`;
-        fetch(pokemonDetailsUrl)
-        .then(function(response) {
-          hideLoadingMessage();
-          return response.json();
-        })
-        .then(function(pokemonData) {
-          if(pokemonData.sprites && pokemonData.sprites.front_default) {
-            pokemonObject.imgUrl = pokemonData.sprites.front_default;
-          }else {
-            console.error('img not found for', pokemon.name);
-          }
-
-          pokemonObject.height = pokemonData.height;
-          pokemonObject.type = pokemonData.types;
-          pokemonObject.abilities = pokemonData.abilities;
-          add(pokemonObject);
-          addListItem(pokemonObject);
-        }) 
-
-        .then(function(data) {
-          let promises = data.results.map(function(pokemon) {
-            return fetch(pokemon.url).then(function(response) {
-              return response.json().then(function(pokemonData) {
-                return {
-                  name: pokemonData.name,
-                  height: pokemonData.height,
-                  weight: pokemonData.weight,
-                  types: pokemonData.types.map(typeObj => typeObj.type.name),
-                  abilities: pokemonData.abilities.map(abilityObj => abilityObj.ability.name)
-                };
-              });
-            });
-          });
-          return Promise.all(promises);
-        })
-        .then(function(pokemonDetails) {
-          fetch('https://api.pokemontcg.io/v2/cards')
-          .then(function(response) {
-            return response.json();
-          })
-          .then(function(data) {
-            pokemonDetails.forEach(function(pokemon) {
-              let card = data.data.find(card => card.name.toLowerCase() === pokemon.name.toLowerCase());
-              if (card) {
-                pokemon.imgURL = card.images.small;
-              } else {
-                pokemon.imgURL = 'default-image-url';
-              }
-              add(pokemon);
-              addListItem(pokemon);
-            });
-          });
-        })
-        .catch(function(error) {
-          hideLoadingMessage();
-          console.error('error getting pokemon', error);
-        })
-        .finally(function() {
-          hideLoadingMessage();
-        });
-    
-  };
-  return {
-    add: add,
-    getAll: getAll,
-    addListItem: addListItem,
-    loadList: loadList,
-    loadDetails: showDetails
-  };
-})();
-pokemonList.loadList();
-
-/*
-  renderPokemonList();
-  }).catch(function(error) {
-    hideLoadingMessage();
-    console.error('error getting pokemon list', error);
-  });
-  };
-
-  //modal end
-/*
-  const loadDetails = function(pokemon) {
-    showLoadingMessage();
-    return fetch(pokemon.detailsUrl)
-    .then(function(response) {
-      hideLoadingMessage();
-      return response.json();
-      })
-      .then(function(data) {
-        pokemon.imgUrlFront = data.sprites.front_default;
+      .then(response => response.json())
+      .then(data => {
+        pokemon.imageUrl = data.sprites.front_default;
         pokemon.height = data.height;
         pokemon.weight = data.weight;
         pokemon.type = data.types.map(typeObj => typeObj.type.name).join(', ');
         pokemon.abilities = data.abilities.map(abilityObj => abilityObj.ability.name).join(', ');
-
-      console.log('loaded details for', pokemon.name, ':', pokemon);
-    }).catch(function(error) {
-      hideLoadingMessage();
-      console.error(`error getting details for ${pokemon.name}`, error);
-    });
-  }; 
-  
-  const renderPokemonList = function() {
-    getAll().forEach(function(pokemon) {
-      addListItem(pokemon);
-    });
+        hideLoadingMessage();
+      })
+      .catch(error => {
+        hideLoadingMessage();
+        console.error(`Error getting details for ${pokemon.name}`, error);
+      });
   };
 
-  return{
+  return {
     add: add,
     getAll: getAll,
     addListItem: addListItem,
     loadList: loadList,
     loadDetails: loadDetails
   };
-})(); 
+})();
 
 pokemonList.loadList();
-*/

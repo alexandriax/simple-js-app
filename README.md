@@ -1,19 +1,23 @@
 # simple javaScript pokedex
+This project focuses on building a small web application using HTML, CSS, and JavaScript. The app will load data from an external API, display it in a user-friendly list, and provide detailed views for individual data points upon user interaction. it ** uses the [pokeAPI](https://pokeapi.co/) **. 
 
-## a WIP pokedex project used to learn & practice javascript
-
-This project is a WIP that I'm using to learn & practice JavaScript. This is my first JavaScript project! This code shows how to:
-
-* implement bootstrap
-* integrate an API
-* implement bootstrap elements (modals, buttons, navbar)
-* use code linters like eslinter 
+### features
+- external API integration
+- data listing
+- detailed view
+- responsive design
+- search functionality
 
 
-## This project:
+### technologies used 
+- HTML
+- CSS
+- JavaScript
+- Bootstrap
+- jQuery
 
-* depends on bootstrap
-* depends on jQuery
-* uses standard eslint rules
-* uses the [pokeAPI](https://pokeapi.co/)
+
+last version deployed can be found [here](https://alexandriax.github.io/simple-js-app/)
+
+
 
